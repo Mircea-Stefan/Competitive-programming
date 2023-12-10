@@ -1,4 +1,3 @@
-#include <iostream>
 inline bool isPrime(unsigned long long int x) {
     if (x < 2)
         return false;
@@ -10,7 +9,4 @@ inline bool isPrime(unsigned long long int x) {
         if (x % d == 0)
             return false;
     return true;
-}
-int main() {
-    return 0;
 }
