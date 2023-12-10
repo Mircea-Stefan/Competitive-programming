@@ -1,4 +1,3 @@
-#include <iostream>
 unsigned long long int lg_pow(unsigned long long int x, char pow) {
     unsigned long long int ans = 1;
     while (pow != 0) {
@@ -8,7 +7,4 @@ unsigned long long int lg_pow(unsigned long long int x, char pow) {
         pow >>= 1;
     }
     return ans;
-}
-int main() {
-    return 0;
 }
