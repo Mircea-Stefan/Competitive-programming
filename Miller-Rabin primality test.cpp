@@ -1,4 +1,3 @@
-#include <iostream>
 #include <ctime>
 inline unsigned long long int lg_pow(unsigned long long int x, unsigned long long int p, unsigned long long int &MOD) {
     unsigned long long int ans = 1;
