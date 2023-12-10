@@ -12,7 +12,7 @@ int main() {
                 sieve[j] = 1;
     primes.emplace_back(2);
     for (i = 3; i <= NMAX; i += 2)
-        if (sieve[i >> 1] == 1)
+        if (sieve[i >> 1] == 0)
             primes.emplace_back(i);
     return 0;
 }
