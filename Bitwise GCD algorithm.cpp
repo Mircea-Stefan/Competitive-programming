@@ -1,4 +1,3 @@
-#include <iostream>
 #pragma GCC target("abm", "bmi", "bmi2", "popcnt", "lzcnt")
 unsigned long long int gcd(unsigned long long int a, unsigned long long b) {
     if (a == 0)
@@ -16,7 +15,4 @@ unsigned long long int gcd(unsigned long long int a, unsigned long long b) {
         b -= a;
     } while (b != 0);
     return (a << shift);
-}
-int main() {
-    return 0;
 }
