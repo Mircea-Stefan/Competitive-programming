@@ -1,7 +1,7 @@
 #include <iostream>
 #include <bitset>
 #include <vector>
-const unsigned long long int NMAX = 1e8;
+static const unsigned long long int NMAX = 1e8;
 unsigned long long int i, j;
 std :: bitset <(NMAX >> 1) + 1> sieve;
 std :: vector <unsigned long long int> primes;
