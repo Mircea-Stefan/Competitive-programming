@@ -1,10 +1,10 @@
 #include <iostream>
 #include <bitset>
 #include <vector>
-static const long long int NMAX = 1e8;
-long long int i, j, aux;
+static const uint64_t NMAX = 1e8;
+uint64_t i, j, aux;
 std :: bitset <NMAX + 1> sieve;
-std :: vector <long long int> primes;
+std :: vector <uint64_t> primes;
 int main() {
     sieve[2] = sieve[3] = 1;
     for (i = 1; i * i <= NMAX; ++ i)
