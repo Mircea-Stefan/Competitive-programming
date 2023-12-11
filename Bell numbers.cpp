@@ -1,9 +1,9 @@
 #include <iostream>
-static const unsigned int NMAX = 26;
-unsigned long long int bell[NMAX + 1], *aux, prev, temp;
-unsigned int i, j;
+static const uint32_t NMAX = 26;
+uint64_t bell[NMAX + 1], *aux, prev, temp;
+uint32_t i, j;
 int main() {
-    aux = (unsigned long long int*)calloc(NMAX + 1, sizeof(unsigned long long int));
+    aux = (uint64_t*)calloc(NMAX + 1, sizeof(uint64_t));
     aux[0] = bell[0] = 1;
     for (i = 1; i <= NMAX; ++ i) {
         prev = aux[0];
