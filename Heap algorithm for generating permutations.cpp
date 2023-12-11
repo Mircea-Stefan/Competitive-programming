@@ -1,17 +1,17 @@
 #include <iostream>
-long long int v[1000];
-unsigned short n;
-inline void printArr() {
-    for (unsigned char i = 0; i != n; ++ i)
+int64_t v[1000];
+uint8_t n;
+void printArr() {
+    for (uint8_t i = 0; i != n; ++ i)
         std :: cout << v[i] << ' ';
     std :: cout << '\n';
 }
-inline void heapPermutation(unsigned char sz) {
+void heapPermutation(uint8_t sz) {
     if (sz == 1) {
         printArr();
         return;
     }
-    for (unsigned char i = 0; i != sz; ++ i) {
+    for (uint8_t i = 0; i != sz; ++ i) {
         heapPermutation(sz - 1);
         if ((sz & 1) == 1)
             std :: swap(v[0], v[sz - 1]);
@@ -21,7 +21,7 @@ inline void heapPermutation(unsigned char sz) {
 }
 int main() {
     std :: cin >> n;
-    for (unsigned short i = 0; i != n; ++ i)
+    for (uint8_t i = 0; i != n; ++ i)
         std :: cin >> v[i];
     heapPermutation(n);
     return 0;
