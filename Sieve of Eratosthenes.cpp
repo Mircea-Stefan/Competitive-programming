@@ -1,10 +1,10 @@
 #include <iostream>
 #include <bitset>
 #include <vector>
-static const unsigned long long int NMAX = 1e8;
-unsigned long long int i, j;
+static const uint32_t NMAX = 1e8;
+uint32_t i, j;
 std :: bitset <(NMAX >> 1) + 1> sieve;
-std :: vector <unsigned long long int> primes;
+std :: vector <uint32_t> primes;
 int main() {
     primes.emplace_back(2);
     primes.emplace_back(3);
