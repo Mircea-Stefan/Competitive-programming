@@ -1,7 +1,7 @@
 #include <iostream>
-static const unsigned int NMAX = 36;
-unsigned long long int catalan[NMAX + 1];
-unsigned int i, j;
+static const uint32_t NMAX = 36;
+uint64_t catalan[NMAX + 1];
+uint32_t i, j;
 int main() {
     catalan[0] = 1;
     for (i = 1; i != NMAX; ++ i)
