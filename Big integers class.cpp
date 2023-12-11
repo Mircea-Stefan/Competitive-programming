@@ -204,8 +204,3 @@ public:
         digit.clear();
     }
 };
-int main() {
-    std :: ofstream fout("output.out");
-    BigInt a(84769356);
-    fout << a.mod(436832);
-}
