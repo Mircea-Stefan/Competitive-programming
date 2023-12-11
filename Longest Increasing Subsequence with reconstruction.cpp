@@ -1,5 +1,5 @@
 #include <iostream>
-int n, i, j, k, l, r, mid, pos;
+unsigned int n, i, j, k, l, r, mid, pos;
 long long int v[100000], dp[100000], aux[100000], ans[100000];
 int main() {
     std :: cin >> n;
