@@ -1,4 +1,3 @@
-#include <fstream>
 #include <vector>
 static const uint64_t base = 10;
 class BigInt {
