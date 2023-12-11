@@ -2,9 +2,8 @@
 #include <vector>
 static const uint64_t base = 10;
 class BigInt {
-private:
-    std :: vector <uint64_t> digit;
 public:
+    std :: vector <uint64_t> digit;
     BigInt(uint64_t n = 0) {
         do {
             digit.emplace_back(n % base);
@@ -15,34 +14,45 @@ public:
         for (uint32_t i = 0; i != a.digit.size(); ++ i)
             digit.emplace_back(a.digit[i]);
     }
-    int8_t comp(BigInt a, uint64_t b) {
-        BigInt aux(b);
-        if (a.digit.size() < aux.digit.size())
-            return -1;
-        if (a.digit.size() > aux.digit.size())
-            return 1;
+    friend bool operator < (BigInt a, BigInt b) {
+        if (a.digit.size() < b.digit.size())
+            return true;
+        if (a.digit.size() > b.digit.size())
+            return false;
         int32_t i;
-        for (i = a.digit.size() - 1; i != -1; -- i) {
-            if (a.digit[i] < aux.digit[i])
-                return -1;
-            if (a.digit[i] > aux.digit[i])
-                return 1;
-        }
-        return 0;
+        for (i = a.digit.size() - 1; i != -1; -- i)
+            if (a.digit[i] != b.digit[i])
+                return a.digit[i] < b.digit[i];
+        return false;
     }
-    int8_t comp(BigInt a) {
-        if (digit.size() < a.digit.size())
-            return -1;
-        if (digit.size() > a.digit.size())
-            return 1;
+    friend bool operator > (BigInt a, BigInt b) {
+        if (a.digit.size() > b.digit.size())
+            return true;
+        if (a.digit.size() < b.digit.size())
+            return false;
         int32_t i;
-        for (i = digit.size() - 1; i != -1; -- i) {
-            if (digit[i] < a.digit[i])
-                return -1;
-            if (digit[i] > a.digit[i])
-                return 1;
-        }
-        return 0;
+        for (i = a.digit.size() - 1; i != -1; -- i)
+            if (a.digit[i] != b.digit[i])
+                return a.digit[i] > b.digit[i];
+        return false;
+    }
+    friend bool operator == (BigInt a, BigInt b) {
+        if (a.digit.size() != b.digit.size())
+            return false;
+        int32_t i;
+        for (i = a.digit.size() - 1; i != -1; -- i)
+            if (a.digit[i] != b.digit[i])
+                return false;
+        return true;
+    }
+    friend bool operator != (BigInt a, BigInt b) {
+        if (a.digit.size() != b.digit.size())
+            return true;
+        int32_t i;
+        for (i = a.digit.size() - 1; i != -1; -- i)
+            if (a.digit[i] != b.digit[i])
+                return true;
+        return false;
     }
     BigInt operator = (uint64_t a) {
         digit.clear();
@@ -97,18 +107,20 @@ public:
         }
         return ans;
     }
-    BigInt diff(BigInt a) {
+    friend BigInt operator - (BigInt a, BigInt b) {
+        if (a < b)
+            std :: swap(a, b);
         BigInt ans;
         ans.digit.clear();
         uint32_t i, j;
-        for (i = 0; i != digit.size(); ++ i)
-            if (digit[i] >= a.digit[i])
-                ans.digit.emplace_back(digit[i] - a.digit[i]);
+        for (i = 0; i != a.digit.size(); ++ i)
+            if (a.digit[i] >= b.digit[i])
+                ans.digit.emplace_back(a.digit[i] - b.digit[i]);
             else {
-                for (j = i + 1; digit[j] == 0; ++ j)
-                    digit[j] = base - 1;
-                -- digit[j];
-                ans.digit.emplace_back(base - a.digit[i] + digit[i]);
+                for (j = i + 1; a.digit[j] == 0; ++ j)
+                    a.digit[j] = base - 1;
+                -- a.digit[j];
+                ans.digit.emplace_back(base - b.digit[i] + a.digit[i]);
             }
         while (!ans.digit.empty() and ans.digit.back() == 0)
             ans.digit.pop_back();
@@ -116,9 +128,11 @@ public:
             ans.digit.emplace_back(0);
         return ans;
     }
-    BigInt diff(uint64_t a) {
-        BigInt ans(a);
-        ans = diff(ans);
+    friend BigInt operator - (BigInt a, uint64_t b) {
+        BigInt ans(b);
+        if (a < ans)
+            std :: swap(a, ans);
+        ans = ans - a;
         return ans;
     }
     friend BigInt operator * (BigInt a, uint64_t b) {
@@ -166,18 +180,18 @@ public:
             ans.digit.emplace_back(0);
         return ans;
     }
-    BigInt div(uint64_t a) {
+    friend BigInt operator / (BigInt a, uint64_t b) {
         BigInt ans;
         ans.digit.clear();
         uint64_t carry = 0;
         int32_t i;
-        for (i = 0; i != digit.size(); ++ i)
+        for (i = 0; i != a.digit.size(); ++ i)
             ans.digit.emplace_back(0);
-        for (i = digit.size() - 1; i != -1; -- i) {
+        for (i = a.digit.size() - 1; i != -1; -- i) {
             carry *= base;
-            carry += digit[i];
-            ans.digit[i] = carry / a;
-            carry %= a;
+            carry += a.digit[i];
+            ans.digit[i] = carry / b;
+            carry %= b;
         }
         while (!ans.digit.empty() and ans.digit.back() == 0)
             ans.digit.pop_back();
@@ -185,15 +199,25 @@ public:
             ans.digit.emplace_back(0);
         return ans;
     }
-    BigInt mod(uint64_t a) {
+    friend BigInt operator / (uint64_t a, BigInt b) {
+        BigInt ans(a);
+        ans = a / b;
+        return ans;
+    }
+    friend uint64_t operator % (BigInt a, uint64_t b) {
         uint64_t carry = 0;
         int32_t i;
-        for (i = digit.size() - 1; i != -1; -- i) {
+        for (i = a.digit.size() - 1; i != -1; -- i) {
             carry *= base;
-            carry += digit[i];
-            carry %= a;
+            carry += a.digit[i];
+            carry %= b;
         }
         return carry;
+    }
+    friend BigInt operator % (uint64_t a, BigInt b) {
+        BigInt ans(a);
+        ans = ans % b;
+        return ans;
     }
     friend std :: ostream& operator << (std :: ostream& o, BigInt a) {
         for (int32_t i = a.digit.size() - 1; i != -1; -- i)
