@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
-static const unsigned int NMAX = 1e7;
-unsigned int sieve[NMAX + 1], i, j;
-std :: vector <unsigned int> primes;
+static const uint32_t NMAX = 1e7;
+uint32_t sieve[NMAX + 1], i, j;
+std :: vector <uint32_t> primes;
 int main() {
     for (i = 2; i <= NMAX; ++ i) {
         if (sieve[i] == 0) {
