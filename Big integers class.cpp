@@ -157,9 +157,8 @@ public:
     }
     friend BigInt operator * (BigInt a, BigInt b) {
         BigInt ans;
-        ans.digit.clear();
         uint32_t i, j;
-        for (i = 0; i != a.digit.size() + b.digit.size(); ++ i)
+        for (i = 1; i != a.digit.size() + b.digit.size(); ++ i)
             ans.digit.emplace_back(0);
         for (i = 0; i != a.digit.size(); ++ i)
             for (j = 0; j != b.digit.size(); ++ j)
@@ -182,10 +181,9 @@ public:
     }
     friend BigInt operator / (BigInt a, uint64_t b) {
         BigInt ans;
-        ans.digit.clear();
         uint64_t carry = 0;
         int32_t i;
-        for (i = 0; i != a.digit.size(); ++ i)
+        for (i = 1; i != a.digit.size(); ++ i)
             ans.digit.emplace_back(0);
         for (i = a.digit.size() - 1; i != -1; -- i) {
             carry *= base;
@@ -199,9 +197,26 @@ public:
             ans.digit.emplace_back(0);
         return ans;
     }
-    friend BigInt operator / (uint64_t a, BigInt b) {
-        BigInt ans(a);
-        ans = a / b;
+    friend BigInt operator / (BigInt a, BigInt b) {
+        BigInt ans, aux;
+        if (a < b)
+            return ans;
+        int32_t i;
+        for (i = 1; i != a.digit.size(); ++ i)
+            ans.digit.emplace_back(0);
+        for (i = a.digit.size() - 1; i != -1; -- i) {
+            aux = aux * base + a.digit[i];
+            while (aux > b) {
+                aux = aux - b;
+                ans.digit[i] = ans.digit[i] + 1;
+            }
+            if (aux == b) {
+                aux = 0;
+                ans.digit[i] = ans.digit[i] + 1;
+            }
+        }
+        while (!ans.digit.empty() and ans.digit.back() == 0)
+            ans.digit.pop_back();
         return ans;
     }
     friend uint64_t operator % (BigInt a, uint64_t b) {
@@ -214,9 +229,20 @@ public:
         }
         return carry;
     }
-    friend BigInt operator % (uint64_t a, BigInt b) {
-        BigInt ans(a);
-        ans = ans % b;
+    friend BigInt operator % (BigInt a, BigInt b) {
+        BigInt ans;
+        if (a < b) {
+            ans = a;
+            return ans;
+        }
+        int32_t i;
+        for (i = a.digit.size() - 1; i != -1; -- i) {
+            ans = ans * base + a.digit[i];
+            while (ans > b)
+                ans = ans - b;
+            if (ans == b)
+                ans = 0;
+        }
         return ans;
     }
     friend std :: ostream& operator << (std :: ostream& o, BigInt a) {
