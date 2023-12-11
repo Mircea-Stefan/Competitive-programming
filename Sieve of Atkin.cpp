@@ -2,7 +2,7 @@
 #include <bitset>
 #include <vector>
 static const uint32_t NMAX = 1e8;
-int32_t i, j, aux;
+int64_t i, j, aux;
 std :: bitset <NMAX + 1> sieve;
 std :: vector <uint32_t> primes;
 int main() {
