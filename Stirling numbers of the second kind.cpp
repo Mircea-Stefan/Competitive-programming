@@ -1,6 +1,6 @@
 #include <iostream>
-static const unsigned int NMAX = 20, RMAX = 20;
-unsigned long long int fact[NMAX + 1], stirling[NMAX + 1][RMAX + 1], i, j;
+static const uint32_t NMAX = 20, RMAX = 20;
+uint64_t fact[NMAX + 1], stirling[NMAX + 1][RMAX + 1], i, j;
 int main() {
     fact[0] = fact[1] = 1;
     for (i = 2; i <= NMAX; ++ i)
