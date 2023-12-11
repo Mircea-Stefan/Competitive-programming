@@ -1,5 +1,6 @@
+#include <iostream>
 #pragma GCC target("abm", "bmi", "bmi2", "popcnt", "lzcnt")
-unsigned long long int gcd(unsigned long long int a, unsigned long long b) {
+uint64_t gcd(uint64_t a, uint64_t b) {
     if (a == 0)
         return b;
     if (b == 0)
