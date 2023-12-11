@@ -1,7 +1,7 @@
 #include <iostream>
-static const unsigned long long int NMAX = 8;
-long long int RMQ[std :: __lg(NMAX) + 2][NMAX + 1];
-unsigned int i, j;
+static const uint32_t NMAX = 1e6;
+int64_t RMQ[std :: __lg(NMAX) + 2][NMAX + 1];
+uint32_t i, j;
 int main() {
     /**
     initialization of RMQ[0]
