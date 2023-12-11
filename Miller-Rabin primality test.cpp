@@ -1,6 +1,7 @@
+#include <iostream>
 #include <ctime>
-inline unsigned long long int lg_pow(unsigned long long int x, unsigned long long int p, unsigned long long int &MOD) {
-    unsigned long long int ans = 1;
+uint64_t lg_pow(uint64_t x, uint64_t p, uint64_t &MOD) {
+    uint64_t ans = 1;
     x %= MOD;
     while (p != 0) {
         if (p & 1) {
@@ -13,14 +14,14 @@ inline unsigned long long int lg_pow(unsigned long long int x, unsigned long lon
     }
     return ans;
 }
-const unsigned long long int bigPrime = 666013;
-inline unsigned long long int Rand(unsigned long long int Max) {
-    unsigned long long int ans = bigPrime % Max * ((unsigned long long int)rand() % Max * (rand() % Max) % Max  + rand() % Max) % Max + rand() % Max;
+const uint64_t bigPrime = 666013;
+uint64_t Rand(uint64_t Max) {
+    uint64_t ans = bigPrime % Max * ((uint64_t)rand() % Max * (rand() % Max) % Max  + rand() % Max) % Max + rand() % Max;
     ans %= Max;
     return ans;
 }
-inline bool MillerRabin(unsigned long long int d, unsigned long long int &n) {
-    unsigned long long int a = 2 + Rand(n - 4), x = lg_pow(a, d, n);
+bool MillerRabin(uint64_t d, uint64_t &n) {
+    uint64_t a = 2 + Rand(n - 4), x = lg_pow(a, d, n);
     if (x == 1 or x == n - 1)
         return true;
     while (d != n - 1) {
@@ -34,7 +35,7 @@ inline bool MillerRabin(unsigned long long int d, unsigned long long int &n) {
     }
     return false;
 }
-inline bool isPrime(unsigned long long int n, unsigned long long int k) {
+bool isPrime(uint64_t n, uint64_t k) {
     if (n <= 1)
         return false;
     if (n == 2 or n == 3)
