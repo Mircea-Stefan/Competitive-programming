@@ -1,10 +1,14 @@
 #include <iostream>
 #include <ctime>
-uint64_t lg_pow(uint64_t x, uint64_t p, uint64_t &MOD) {
+const uint64_t bigPrime = 1e9 + 7;
+uint64_t Rand(uint64_t MOD) {
+    return ((bigPrime % MOD) * ((rand() % MOD) * (rand() % MOD) % MOD + (rand() % MOD)) + (rand() % MOD)) % MOD;
+}
+uint64_t fastExp(uint64_t x, uint64_t p, uint64_t MOD) {
     uint64_t ans = 1;
     x %= MOD;
     while (p != 0) {
-        if (p & 1) {
+        if ((p & 1) == 1) {
             ans *= x;
             ans %= MOD;
         }
@@ -14,14 +18,8 @@ uint64_t lg_pow(uint64_t x, uint64_t p, uint64_t &MOD) {
     }
     return ans;
 }
-const uint64_t bigPrime = 666013;
-uint64_t Rand(uint64_t Max) {
-    uint64_t ans = bigPrime % Max * ((uint64_t)rand() % Max * (rand() % Max) % Max  + rand() % Max) % Max + rand() % Max;
-    ans %= Max;
-    return ans;
-}
-bool MillerRabin(uint64_t d, uint64_t &n) {
-    uint64_t a = 2 + Rand(n - 4), x = lg_pow(a, d, n);
+bool MillerRabin(uint64_t d, uint64_t n) {
+    uint64_t a = 2 + Rand(n - 4), x = fastExp(a, d, n);
     if (x == 1 or x == n - 1)
         return true;
     while (d != n - 1) {
@@ -36,21 +34,26 @@ bool MillerRabin(uint64_t d, uint64_t &n) {
     return false;
 }
 bool isPrime(uint64_t n, uint64_t k) {
-    if (n <= 1)
+    if (n < 2)
         return false;
     if (n == 2 or n == 3)
         return true;
     if ((n & 1) == 0)
         return false;
-    unsigned long long int d = n - 1;
+    uint64_t d = n - 1;
     while ((d & 1) == 0)
         d >>= 1;
-    for (; k != 0; -- k)
+    for (; k > 0; -- k)
         if (MillerRabin(d, n) == 0)
             return false;
     return true;
 }
 int main() {
+	std :: ios_base :: sync_with_stdio(false);
+	std :: cin.tie(nullptr);
     srand(time(NULL));
+    uint64_t x;
+    std :: cin >> x;
+    std :: cout << isPrime(x, 20);
     return 0;
 }
