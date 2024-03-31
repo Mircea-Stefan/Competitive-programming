@@ -3,9 +3,8 @@
 const uint16_t MaxFact = 20;
 uint64_t fact[MaxFact + 1];
 void precomputeFact() {
-	uint64_t i;
 	fact[0] = fact[1] = 1;
-	for (i = 2; i <= MaxFact; ++ i)
+	for (uint64_t i = 2; i <= MaxFact; ++ i)
 		fact[i] = fact[i - 1] * i;
 }
 void getNthPerm(uint16_t len, uint64_t v[], uint64_t n, uint64_t ans[]) {
