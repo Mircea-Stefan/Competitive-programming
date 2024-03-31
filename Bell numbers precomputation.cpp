@@ -1,4 +1,4 @@
-static const uint16_t MaxBell = 26;
+const uint16_t MaxBell = 26;
 uint64_t bell[MaxBell + 1];
 void precomputeBell() {
 	uint64_t aux[MaxBell + 1], prev, temp;
