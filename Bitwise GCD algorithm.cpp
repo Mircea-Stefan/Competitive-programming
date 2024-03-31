@@ -1,5 +1,5 @@
-#include <iostream>
 #pragma GCC target("abm", "bmi", "bmi2", "popcnt", "lzcnt")
+#include <iostream>
 uint64_t gcd(uint64_t a, uint64_t b) {
     if (a == 0)
         return b;
