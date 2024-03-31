@@ -7,7 +7,7 @@ uint64_t gcd(uint64_t a, uint64_t b) {
         return a;
     if (a == 1 or b == 1)
         return 1;
-    char shift = __builtin_ctz(a | b), m;
+    char shift = __builtin_ctz(a | b);
     a >>= __builtin_ctz(a);
     do {
         b >>= __builtin_ctz(b);
