@@ -40,8 +40,7 @@ uint64_t mergeSort(uint64_t v[], uint64_t aux[], uint32_t l, uint32_t r) {
 }
 uint64_t countInversions(uint32_t n, uint64_t v[]) {
 	uint64_t Copy[n];
-	uint32_t i;
-	for (i = 0; i < n; ++ i)
+	for (uint32_t i = 0; i < n; ++ i)
 		Copy[i] = v[i];
 	uint64_t aux[n];
 	return mergeSort(Copy, aux, 0, n - 1);
