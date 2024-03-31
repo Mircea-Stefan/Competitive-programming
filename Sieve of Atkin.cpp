@@ -1,12 +1,11 @@
-#include <iostream>
 #include <bitset>
 #include <vector>
-static const uint32_t NMAX = 1e8;
-int64_t i, j, aux;
+const uint32_t NMAX = 1e8;
 std :: bitset <NMAX + 1> sieve;
 std :: vector <uint32_t> primes;
-int main() {
+void precomputePrimes() {
     sieve[2] = sieve[3] = 1;
+    uint32_t i, j, aux;
     for (i = 1; i * i <= NMAX; ++ i)
         for (j = 1; j * j <= NMAX; ++ j) {
             aux = ((i * i) << 2) + j * j;
@@ -27,5 +26,4 @@ int main() {
     for (i = 3; i <= NMAX; i += 2)
         if (sieve[i] == 1)
             primes.emplace_back(i);
-    return 0;
 }
